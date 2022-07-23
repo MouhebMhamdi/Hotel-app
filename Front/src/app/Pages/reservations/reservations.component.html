@@ -1,0 +1,30 @@
+<section class="  bg-primary ">
+    <div class="container  ">
+            <h1 class="text-center text-white mb-5">Reservations</h1>
+            <div class="form-outline pb-3">
+                        <input type="search" id="form1" class="form-control searchTerm" placeholder="Search" [(ngModel)]="term"/>
+            </div>
+            <div class="card mb-3" *ngFor="let reservation of reservations | filter: term | paginate: { itemsPerPage: 3, currentPage: p }">
+            <div class="card-header">
+              <h5>  Hotel  {{reservation.hotel.name}}</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 class="card-title mb-5"><b>Start date:</b> {{reservation.startDate | date}}</h5>
+                        <h5 class="card-title mb-5"><b>End date:</b> {{reservation.endDate | date}}</h5>
+                        <h5 class="card-title mb-5"><b>Number of adults:</b> {{reservation.nbrAdults}}</h5>
+                        <h5 class="card-title mb-5"><b>Number of childrens:</b> {{reservation.nbrShildren}}</h5>
+                        <h5 class="card-title"><b>Number of rooms:</b> {{reservation.nbr_rooms}}</h5>
+                    </div>
+                    <div class="col-md-6">
+                        <img class="img-fluid" src="{{reservation.hotel.photo}}" alt="hotel">
+                    </div>
+                </div>
+            </div>
+            </div>
+         <div class="paginator d-flex justify-content-center pt-5">
+                        <pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
+        </div>
+    </div>
+</section>

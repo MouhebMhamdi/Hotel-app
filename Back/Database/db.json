@@ -1,0 +1,5 @@
+{
+    "mongo":{
+        "uri":"mongodb+srv://Eya:50219558@cluster0.oxdj1.mongodb.net/Hotel?retryWrites=true&w=majority"
+    }
+}

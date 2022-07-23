@@ -1,0 +1,80 @@
+<section id="services" class="bg-primary">
+        <div class="container">
+            <div class="row">
+            <div class="col offset-lg-12 pb-3 text-center mx-auto">
+            
+            <h1 class="text-white section-heading">Hotels</h1>
+            </div>
+            <div class="form-outline pb-3">
+                        <input type="search" id="form1" class="form-control searchTerm" placeholder="Search" [(ngModel)]="term"/>
+            </div>
+               <div class="col-4" *ngFor="let hotel of hotels | filter: term | paginate: { itemsPerPage: 3, currentPage: p } ">
+               
+                <div class="card mb-3" style="width: 25rem; " >
+                        <img class="card-img-top" [src]="hotel.photo" alt="Card image cap">
+
+                        <div class="card-body" style="height:20rem">
+                            <h5 class="card-title">{{hotel.name}} | <span class="badge bg-info text-dark">{{hotel.price}} DT <br></span> </h5>
+                            
+                            <div class="row">
+                                <div class="col-4">
+                                   {{hotel.stars}} stars <i class="bi bi-star-fill text-warning" *ngFor="let start of  [].constructor(hotel.stars)"></i>
+                                </div>
+                                
+                            <div class="col-8">
+                                <b>{{hotel.adresse+', '+hotel.Country+', '+hotel.City}}.</b><br>
+                                <p class="card-text">{{hotel.description | slice:0:150}}...</p>
+                            </div>
+
+                           </div>
+                            <button type="button" class="btn btn-primary w-100" (click)="click(hotel._id,reservation)">Booked</button>
+                        </div>
+                </div>
+                
+               </div>
+               <div class="paginator d-flex justify-content-center ">
+                        <pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <ng-template #reservation let-modal >
+
+        <div class="modal-header">
+               <h3>Reservation:</h3>
+        </div>
+        <div class=" container">
+            <form [formGroup]="myFormLogin" (submit)="addReservation()">
+                
+                        <div class="form-group">
+                        <label for="exampleInputEmail1">Start date</label>
+                        <input type="date" class="form-control"   id="exampleInputEmail1" aria-describedby="emailHelp"  formControlName="startDate"  [ngClass]="{ 'is-invalid': submittedLogin && myFormLogin.controls['startDate'].errors }">
+              
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">End date</label>
+                            <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="endDate" [ngClass]="{ 'is-invalid': submittedLogin && myFormLogin.controls['endDate'].errors }">
+                        </div>
+                    
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Number of rooms</label>
+                            <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"formControlName="nbr_rooms" [ngClass]="{ 'is-invalid': submittedLogin && myFormLogin.controls['nbr_rooms'].errors }">
+                        </div>
+                    </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Number of adults</label>
+                            <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"formControlName="nbrAdults" [ngClass]="{ 'is-invalid': submittedLogin && myFormLogin.controls['nbrAdults'].errors }">
+                        </div>
+                 
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Number of shilds</label>
+                            <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"formControlName="nbrShildren" [ngClass]="{ 'is-invalid': submittedLogin && myFormLogin.controls['nbrShildren'].errors }">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 mt-3 mb-3">Validate</button>
+                
+              
+            </form>
+        </div>
+
+    </ng-template>
